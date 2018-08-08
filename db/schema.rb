@@ -10,23 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_08_135148) do
+ActiveRecord::Schema.define(version: 2018_08_08_134324) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "interest_categories", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "user_activities", force: :cascade do |t|
-    t.integer "user_id"
-    t.float "last_location_lat"
-    t.float "last_location_lon"
-    t.integer "last_zipcode"
-    t.boolean "active_user", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -44,6 +34,10 @@ ActiveRecord::Schema.define(version: 2018_08_08_135148) do
     t.string "password_digest"
     t.date "date_of_birth"
     t.text "bio"
+    t.decimal "last_location_lat"
+    t.decimal "last_location_lon"
+    t.integer "last_zipcode"
+    t.boolean "active_user", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

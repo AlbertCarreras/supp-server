@@ -6,6 +6,10 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :password_digest
       t.date :date_of_birth
       t.text :bio
+      t.decimal :last_location_lat
+      t.decimal :last_location_lon
+      t.integer :last_zipcode
+      t.boolean :active_user, default: false
 
       t.timestamps
     end

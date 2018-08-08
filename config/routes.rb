@@ -6,6 +6,8 @@ Rails.application.routes.draw do
       # resources :interest_categories
       # resources :users 
       get '/' => 'users#index' 
+      get '/categories' => 'interest_categories#index' 
+
     end
   end
 end
