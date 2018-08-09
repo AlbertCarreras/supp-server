@@ -15,6 +15,7 @@ class Api::V1::UsersController < ApplicationController
       current_user.update!(last_login: Time.now)
       render json: current_user
     end
+
     # Method to create a new user using the safe params we setup.
     def create
       user = User.new(user_params)
@@ -22,6 +23,7 @@ class Api::V1::UsersController < ApplicationController
         render json: {status: 200, msg: 'User was created.'}
       end
     end
+
     # Method to update a specific user. User will need to be authorized.
     def update
       user = User.find(params[:id])
@@ -29,6 +31,11 @@ class Api::V1::UsersController < ApplicationController
         render json: { status: 200, msg: 'User details have been updated.' }
       end
     end
+
+    def upload
+      
+    end
+
     # Method to delete a user, this method is only for admin accounts.
     def destroy
       user = User.find(params[:id])
@@ -50,7 +57,7 @@ class Api::V1::UsersController < ApplicationController
    
     # Setting up strict parameters for when we add account creation.
     def user_params
-      params.require(:user).permit(:username, :email, :password, :password_confirmation)
+      params.require(:user).permit(:username, :email, :password, :password_confirmation, :profile_image)
     end
    
     # Adding a method to check if current_user can update itself.

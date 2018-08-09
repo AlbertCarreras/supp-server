@@ -3,8 +3,11 @@ class User < ApplicationRecord
     has_many :user_interests
     has_many :interest_categories, through: :user_interests
 
-  # Necessary to authenticate.
-  has_secure_password
+    # Necessary to photo upload.
+    has_one_attached :profile_image
+
+    # Necessary to authenticate.
+    has_secure_password
   
   # Basic password validation, configure to your liking.
   validates_length_of :password, maximum: 72, minimum: 8, allow_nil: true, allow_blank: false

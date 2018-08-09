@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       get '/users' => 'users#index'
       get '/users/current' => 'users#current'
       post '/users/create' => 'users#create'
+      post '/users/uploadProfile' => 'users#upload'
       patch '/user/:id' => 'users#update'
       delete '/user/:id' => 'users#destroy'
       
