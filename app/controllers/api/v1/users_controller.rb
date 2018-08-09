@@ -1,6 +1,6 @@
 class Api::V1::UsersController < ApplicationController
     # Use Knock to make sure the current_user is authenticated before completing request.
-    before_action :authenticate_user,  only: [:index, :current, :update]
+    before_action :authenticate_user,  only: [:index, :current, :update, :auth]
     before_action :authorize_as_admin, only: [:destroy]
     before_action :authorize,          only: [:update]
    
@@ -35,6 +35,14 @@ class Api::V1::UsersController < ApplicationController
       if user.destroy
         render json: { status: 200, msg: 'User has been deleted.' }
       end
+    end
+
+    # Authorized only method
+    def auth
+      render json: {
+        username: current_user.username,
+        id: current_user.id,
+      }
     end
    
     private

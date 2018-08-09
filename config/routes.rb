@@ -4,11 +4,8 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      # Home controller routes.
-      root 'home#index'
-      get 'auth' => 'home#auth'
-    
       # User actions
+      get '/user/auth' => 'users#auth'
       get '/users' => 'users#index'
       get '/users/current' => 'users#current'
       post '/users/create' => 'users#create'
