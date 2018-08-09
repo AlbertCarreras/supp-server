@@ -42,6 +42,7 @@ class Api::V1::UsersController < ApplicationController
       render json: {
         username: current_user.username,
         id: current_user.id,
+        email: current_user.email,
       }
     end
    
