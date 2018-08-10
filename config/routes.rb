@@ -4,20 +4,23 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      # User actions
-      get '/user/auth' => 'users#auth'
+      #Page setup
+      get '/categories' => 'interest_categories#index' 
       get '/users' => 'users#index'
-      get '/users/current' => 'users#current'
+
+      # User no-action data
+      get '/user/auth' => 'users#auth'
       post '/users/create' => 'users#create'
+      post 'user_token' => 'user_token#create' # Get login token from Knock
+
+      # User action data
       post '/users/uploadProfile' => 'users#upload'
       patch '/user/:id' => 'users#update'
-      delete '/user/:id' => 'users#destroy'
+
+      #UNUSED
+      # get '/users/current' => 'users#current'
+      # delete '/user/:id' => 'users#destroy'
       
-      # Get login token from Knock
-      post 'user_token' => 'user_token#create'
-
-      get '/categories' => 'interest_categories#index' 
-
     end
   end
 end

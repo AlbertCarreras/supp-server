@@ -1,8 +1,8 @@
 class Api::V1::UsersController < ApplicationController
     # Use Knock to make sure the current_user is authenticated before completing request.
-    before_action :authenticate_user,  only: [:current, :update, :auth]
-    before_action :authorize_as_admin, only: [:destroy]
-    before_action :authorize,          only: [:update]
+    before_action :authenticate_user,  only: [:auth, :update, :upload]
+    # before_action :authorize_as_admin, only: [:destroy]
+    # before_action :authorize,          only: [:update]
    
     # Should work if the current_user is authenticated.
     def index
@@ -12,10 +12,10 @@ class Api::V1::UsersController < ApplicationController
    
     # Call this method to check if the user is logged-in.
     # If the user is logged-in we will return the user's information.
-    def current
-      current_user.update!(last_login: Time.now)
-      render json: current_user
-    end
+    # def current
+    #   current_user.update!(last_login: Time.now)
+    #   render json: current_user
+    # end
 
     # Method to create a new user using the safe params we setup.
     def create
@@ -37,35 +37,68 @@ class Api::V1::UsersController < ApplicationController
     
     # Method to upload a photo. User will need to be authorized.
     def update
-      user = User.find(params[:user_id])
+      user = current_user
       if user.update(user_params)
-        render json: { status: 200, msg: 'User details have been updated.' }
+        render json: {
+          lat: current_user.last_location_lat,
+          lon: current_user.last_location_lon,
+        }
       end
     end
 
-    # Method to delete a user, this method is only for admin accounts.
-    def destroy
-      user = User.find(user_params[:id])
-      if user.destroy
-        render json: { status: 200, msg: 'User has been deleted.' }
-      end
-    end
+    # # Method to delete a user, this method is only for admin accounts.
+    # def destroy
+    #   user = User.find(user_params[:id])
+    #   if user.destroy
+    #     render json: { status: 200, msg: 'User has been deleted.' }
+    #   end
+    # end
 
     # Authorized only method
+
     def auth
-      render json: {
-        username: current_user.username,
-        id: current_user.id,
-        email: current_user.email,
-        profile_image: url_for(current_user.profile_image.variant(resize: "200x200"))
-      }
+      if current_user.profile_image.attached?
+          if current_user.last_location_lat
+            render json: {
+              username: current_user.username,
+              id: current_user.id,
+              email: current_user.email,
+              lat: current_user.last_location_lat,
+              lon: current_user.last_location_lon,
+              profile_image: url_for(current_user.profile_image.variant(resize: "200x200"))
+            }
+          else 
+            render json: {
+              username: current_user.username,
+              id: current_user.id,
+              email: current_user.email,
+              profile_image: url_for(current_user.profile_image.variant(resize: "200x200"))
+            }
+          end
+      else 
+          if current_user.last_location_lat
+            render json: {
+              username: current_user.username,
+              id: current_user.id,
+              email: current_user.email,
+              lat: current_user.last_location_lat,
+              lon: current_user.last_location_lon,
+            }
+          else 
+            render json: {
+              username: current_user.username,
+              id: current_user.id,
+              email: current_user.email,
+            }
+          end
+      end
     end
    
     private
    
     # Setting up strict parameters for when we add account creation.
     def user_params
-      params.require(:user).permit(:user_id, :username, :email, :password, :password_confirmation, :profile_image)
+      params.require(:user).permit(:user_id, :username, :email, :password, :password_confirmation, :profile_image, :last_location_lat, :last_location_lon)
     end
     def photo_params
       params.permit(:user_id, :profile_image)
