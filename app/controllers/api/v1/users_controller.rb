@@ -7,7 +7,18 @@ class Api::V1::UsersController < ApplicationController
     # Should work if the current_user is authenticated.
     def index
       @users = User.all
-      render json: @users
+      render json: @users.map { |user|
+        {
+          "username" => user.username, 
+          "email" => user.email, 
+          "userId" => user.id, 
+          "last_login" => user.last_login, 
+          "bio" => user.bio, 
+          "profileImageLink" => user.profile_image.attached? ? url_for(user.profile_image.variant(resize: "200x200")) : "undefined", 
+          "lat" => user.last_location_lat, 
+          "lon" => user.last_location_lon, 
+        }
+    }
     end
    
     # Call this method to check if the user is logged-in.
