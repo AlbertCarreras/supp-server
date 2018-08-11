@@ -9,8 +9,8 @@ Rails.application.routes.draw do
       get '/users' => 'users#index'
 
       # User no-action data
-      get '/user/auth' => 'users#auth'
-      post '/users/create' => 'users#create'
+      get '/user/auth' => 'sessions#auth'
+      post '/users/create' => 'sessions#create'
       post 'user_token' => 'user_token#create' # Get login token from Knock
 
       # User action data

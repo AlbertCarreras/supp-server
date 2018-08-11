@@ -8,6 +8,13 @@ class User < ApplicationRecord
 
     # Necessary to authenticate.
     has_secure_password
+    
+    # Necessary for gem 'geokit-rails'
+    acts_as_mappable  :default_units => :miles,
+                      :default_formula => :sphere,
+                      :distance_field_name => :distance,
+                      :lat_column_name => :last_location_lat,
+                      :lng_column_name => :last_location_lon
   
   # Basic password validation, configure to your liking.
   validates_length_of :password, maximum: 72, minimum: 8, allow_nil: true, allow_blank: false

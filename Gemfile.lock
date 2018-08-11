@@ -59,6 +59,10 @@ GEM
     crass (1.0.4)
     erubi (1.7.1)
     ffi (1.9.25)
+    geokit (1.13.1)
+    geokit-rails (2.3.1)
+      geokit (~> 1.5)
+      rails (>= 3.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     i18n (1.0.1)
@@ -153,6 +157,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.1.0)
   byebug
+  geokit-rails
   jwt
   knock
   listen (>= 3.0.5, < 3.2)
