@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       #Page setup
       get '/categories' => 'interest_categories#index' 
-      get '/users' => 'users#index'
+      get '/users' => 'friends#index'
 
       # User no-action data
       get '/user/auth' => 'sessions#auth'

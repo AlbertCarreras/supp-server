@@ -1,21 +1,5 @@
 class Api::V1::UsersController < ApplicationController
     before_action :authenticate_user,  only: [:index, :update, :upload]
-
-    def index
-      @users = User.all
-      render json: @users.map { |user|
-        {
-          "username" => user.username, 
-          "email" => user.email, 
-          "userId" => user.id, 
-          "last_login" => user.last_login, 
-          "bio" => user.bio, 
-          "profileImageLink" => user.profile_image.attached? ? url_for(user.profile_image.variant(resize: "200x200")) : "undefined", 
-          "lat" => user.last_location_lat, 
-          "lon" => user.last_location_lon, 
-        }
-    }
-    end
    
     def upload
       @user = User.find(photo_params[:user_id])
