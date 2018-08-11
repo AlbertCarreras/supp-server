@@ -4,7 +4,7 @@ class Api::V1::FriendsController < ApplicationController
     def index
       @users = User.all
       @users = @users.sort_by{|s| s.distance_to(current_user)}
-      render json: @users.map { |user|
+      render json: @users.drop(1).map { |user|
         {
           "username" => user.username, 
           "email" => user.email, 
