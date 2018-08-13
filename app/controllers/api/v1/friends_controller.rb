@@ -3,6 +3,9 @@ class Api::V1::FriendsController < ApplicationController
 
     def index
       @users = User.select{|user| user.id != current_user.id}
+      if !params["filter"].nil?
+        @users = @users.select {|user| user.interest_ids.include?(friends_params[:filterId])}
+      end
       @users = @users.sort_by{|s| s.distance_to(current_user)}
       render json: @users.map { |user|
         {
@@ -23,6 +26,10 @@ class Api::V1::FriendsController < ApplicationController
    
     def user_params
       params.require(:user).permit(:user_id, :username, :email, :password, :password_confirmation, :profile_image, :last_location_lat, :last_location_lon)
+    end
+
+    def friends_params
+      params.require(:filter).permit(:filterId)
     end
 
     def authorize
