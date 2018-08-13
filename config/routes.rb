@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       #Page setup
-      get '/categories' => 'interest_categories#index' 
+      post '/searchInterests' => 'interests#index' 
       get '/users' => 'friends#index'
 
       # User no-action data

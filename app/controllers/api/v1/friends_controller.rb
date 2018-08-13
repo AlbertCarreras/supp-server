@@ -11,7 +11,7 @@ class Api::V1::FriendsController < ApplicationController
           "userId" => user.id, 
           "last_login" => user.last_login, 
           "bio" => user.bio, 
-          "profileImageLink" => user.profile_image.attached? ? url_for(user.profile_image.variant(resize: "200x200")) : "undefined", 
+          "profileImageLink" => user.profile_image.attached? ? url_for(user.profile_image.variant(resize: "400x400")) : "undefined",
           "lat" => user.last_location_lat, 
           "lon" => user.last_location_lon,
           "distance" => user.distance_to(current_user)
