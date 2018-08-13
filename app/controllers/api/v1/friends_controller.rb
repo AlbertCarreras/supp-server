@@ -2,9 +2,9 @@ class Api::V1::FriendsController < ApplicationController
     before_action :authenticate_user,  only: [:index]
 
     def index
-      @users = User.all
+      @users = User.select{|user| user.id != current_user.id}
       @users = @users.sort_by{|s| s.distance_to(current_user)}
-      render json: @users.drop(1).map { |user|
+      render json: @users.map { |user|
         {
           "username" => user.username, 
           "email" => user.email, 
