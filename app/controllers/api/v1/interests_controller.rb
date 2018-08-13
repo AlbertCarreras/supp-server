@@ -1,5 +1,5 @@
 class Api::V1::InterestsController < ApplicationController
-    # before_action :authenticate_user,  only: [:index]
+    before_action :authenticate_user,  only: [:index]
     
     def index
         @interests = InterestCategory.select { |m| 
