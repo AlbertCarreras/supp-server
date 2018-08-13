@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       # User action data
       post '/users/uploadProfile' => 'users#upload'
       patch '/user/:id' => 'users#update'
+      post '/user/:id/interests' => 'user_interests#update'
 
       #UNUSED
       # get '/users/current' => 'users#current'
