@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       #Page setup
       post '/searchInterests' => 'interests#index' 
       get '/users' => 'friends#index'
-      post '/users' => 'friends#index'
+      post '/users' => 'friends#filteredFriends'
 
       # User no-action data
       get '/user/auth' => 'sessions#auth'
