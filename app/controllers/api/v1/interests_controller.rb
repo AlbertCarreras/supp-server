@@ -2,7 +2,7 @@ class Api::V1::InterestsController < ApplicationController
     before_action :authenticate_user,  only: [:index]
     
     def index
-        @interests = InterestCategory.select { |m| 
+        @interests = Interest.select { |m| 
         m.name.include? (user_params[:searchTerm])
         }
         @interests = @interests.sort_by { |m| m.name.downcase }

@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 2018_08_09_193646) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "interest_categories", force: :cascade do |t|
+  create_table "interests", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 2018_08_09_193646) do
 
   create_table "user_interests", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "interest_category_id"
+    t.integer "interest_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

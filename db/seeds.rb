@@ -1,4 +1,4 @@
-InterestCategory.delete_all
+Interest.delete_all
 
 hobbies = "3D printing,
 Acrobatics,
@@ -129,7 +129,7 @@ Herp keeping,
 Herping,
 High-power rocketry,
 Hiking,
-Hiking/backpacking,
+Backpacking,
 Homebrewing,
 Hooping,
 Horseback riding,
@@ -301,4 +301,4 @@ Writing,
 Yo-yoing,
 Yoga,"
 
-hobbies.split(",").each { |hobbie| InterestCategory.create(name: hobbie.downcase.strip)}
+hobbies.split(",").each { |hobbie| Interest.create(name: hobbie.downcase.strip)}
