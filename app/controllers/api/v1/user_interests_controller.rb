@@ -10,6 +10,15 @@ class Api::V1::UserInterestsController < ApplicationController
         }
     end
 
+    def destroy
+      if !params["user"]["interests"].nil?
+        UserInterest.find_by(user_id: current_user.id, interest_id: params["user"]["interests"]["id"]).delete
+          render json: {
+            interests: current_user.interests
+          }
+      end
+    end
+
     private
     
     def authorize

@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  # Get login token from Knock
-  # post 'user_token' => 'user_token#create'
 
   namespace :api do
     namespace :v1 do
@@ -18,6 +16,7 @@ Rails.application.routes.draw do
       post '/users/uploadProfile' => 'users#upload'
       patch '/user/:id' => 'users#update'
       post '/user/:id/interests' => 'user_interests#update'
+      delete '/user_interests/:id' => 'user_interests#destroy'
 
       #UNUSED
       # get '/users/current' => 'users#current'
