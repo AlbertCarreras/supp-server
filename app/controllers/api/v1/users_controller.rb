@@ -11,7 +11,6 @@ class Api::V1::UsersController < ApplicationController
     end
     
     def update
-      # byebug
       user = current_user
       if user.update(user_params)
         render json: {
