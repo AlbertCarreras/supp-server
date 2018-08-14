@@ -17,6 +17,7 @@ class Api::V1::SessionsController < ApplicationController
               id: current_user.id,
               email: current_user.email,
               bio: current_user.bio,
+              userInterests: current_user.interests,
               lat: current_user.last_location_lat,
               lon: current_user.last_location_lon,
               profile_image: url_for(current_user.profile_image.variant(resize: "200x200"))
@@ -27,6 +28,7 @@ class Api::V1::SessionsController < ApplicationController
               id: current_user.id,
               email: current_user.email,
               bio: current_user.bio,
+              userInterests: current_user.interests,
               profile_image: url_for(current_user.profile_image.variant(resize: "200x200"))
             }
           end
@@ -36,6 +38,8 @@ class Api::V1::SessionsController < ApplicationController
               username: current_user.username,
               id: current_user.id,
               email: current_user.email,
+              bio: current_user.bio,
+              userInterests: current_user.interests,
               lat: current_user.last_location_lat,
               lon: current_user.last_location_lon,
             }
@@ -44,6 +48,8 @@ class Api::V1::SessionsController < ApplicationController
               username: current_user.username,
               id: current_user.id,
               email: current_user.email,
+              bio: current_user.bio,
+              userInterests: current_user.interests,
             }
           end
       end
