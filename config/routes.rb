@@ -21,6 +21,11 @@ Rails.application.routes.draw do
       #UNUSED
       # get '/users/current' => 'users#current'
       # delete '/user/:id' => 'users#destroy'
+
+      #CHAT & WEBSOCKET ROUTES
+      resources :conversations, only: [:index, :create]
+      resources :messages, only: [:create]
+      mount ActionCable.server => '/cable'
       
     end
   end
