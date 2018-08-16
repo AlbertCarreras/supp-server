@@ -8,19 +8,18 @@ class Api::V1::ConversationsController < ApplicationController
     def create
         # 1. create a new conversation in the db.
         conversation = Conversation.new(conversation_params)
-        # 2. get the serialized data for the conversation
-        serialized_data = ActiveModelSerializers::Adapter::Json.new(
+        
+        # 2. if succesfully saved... get the serialized data for the conversation 
+        if conversation.save
+            serialized_data = ActiveModelSerializers::Adapter::Json.new(
             ConversationSerializer.new(conversation)
             ).serializable_hash
-        # 3. if succesfully saved... send back the serialized data to subscribers.
-        if conversation.save
-            
+             # 3. then send back the serialized data to subscribers.
             ActionCable.server.broadcast(
                 'conversations_channel', 
                 serialized_data
             )
-
-          head :ok
+            head :ok
           
         end
     end

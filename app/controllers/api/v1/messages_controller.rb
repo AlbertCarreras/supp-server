@@ -3,15 +3,15 @@ class Api::V1::MessagesController < ApplicationController
       # 1. create a new message in the db.
       message = Message.new(message_params)
       
-      # 2. get the serialized data for the message
-      serialized_data = ActiveModelSerializers::Adapter::Json.new(
+      conversation = Conversation.find(message_params[:conversation_id])
+      
+      # 2. if succesfully saved... get the serialized data for the message 
+      if message.save
+        serialized_data = ActiveModelSerializers::Adapter::Json.new(
           MessageSerializer.new(message)
         ).serializable_hash
-      
-      # 3. if succesfully saved... send back the serialized data to subscribers.
-      conversation = Conversation.find(message_params[:conversation_id])
-      if message.save
         
+        # 3. then send back the serialized data to subscribers.
         MessagesChannel.broadcast_to(
           conversation, 
         serialized_data
