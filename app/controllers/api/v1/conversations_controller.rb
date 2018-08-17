@@ -12,8 +12,9 @@ class Api::V1::ConversationsController < ApplicationController
         # 2. if succesfully saved... get the serialized data for the conversation 
         if conversation.save
             serialized_data = ActiveModelSerializers::Adapter::Json.new(
-            ConversationSerializer.new(conversation)
+                ConversationSerializer.new(conversation)
             ).serializable_hash
+            
              # 3. then send back the serialized data to subscribers.
             ActionCable.server.broadcast(
                 'conversations_channel', 
