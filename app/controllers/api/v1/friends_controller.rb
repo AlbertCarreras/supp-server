@@ -2,9 +2,12 @@ class Api::V1::FriendsController < ApplicationController
     before_action :authenticate_user,  only: [:index, :filteredFriends]
 
     def index
-      @users = User.select{|user| user.id != current_user.id}
-      @users = @users.sort_by{|s| s.distance_to(current_user)}
-      render json: @users.map { |user|
+      
+      users = User.select{|user| user.id != current_user.id}
+      
+      users = users.sort_by{|s| s.distance_to(current_user)}
+      
+      render json: users.map { |user|
         {
           "username" => user.username, 
           "email" => user.email, 
@@ -21,10 +24,14 @@ class Api::V1::FriendsController < ApplicationController
     end
 
     def filteredFriends
-      @users = User.select{|user| user.id != current_user.id}
-      @users = @users.select {|user| user.interest_ids.include?(friends_params[:filterId])}
-      @users = @users.sort_by{|s| s.distance_to(current_user)}
-      render json: @users.map { |user|
+      
+      users = User.select{|user| user.id != current_user.id}
+      
+      users = users.select {|user| user.interest_ids.include?(friends_params[:filterId])}
+      
+      users = users.sort_by{|s| s.distance_to(current_user)}
+      
+      render json: users.map { |user|
         {
           "username" => user.username, 
           "email" => user.email, 

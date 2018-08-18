@@ -1,8 +1,10 @@
 class Api::V1::MessagesController < ApplicationController
+
     def create
+
       # 1. create a new message in the db.
       message = Message.new(message_params)
-      
+    
       conversation = Conversation.find(message_params[:conversation_id])
       
       # 2. if succesfully saved... get the serialized data for the message 
@@ -18,6 +20,7 @@ class Api::V1::MessagesController < ApplicationController
         )
 
         head :ok
+        
       end
     end
     

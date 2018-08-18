@@ -1,20 +1,20 @@
 class User < ApplicationRecord
 
-    has_many :user_interests
-    has_many :interests, through: :user_interests
+  has_many :user_interests
+  has_many :interests, through: :user_interests
 
-    # Necessary to photo upload.
-    has_one_attached :profile_image
+  # Necessary to photo upload.
+  has_one_attached :profile_image
 
-    # Necessary to authenticate.
-    has_secure_password
-    
-    # Necessary for gem 'geokit-rails'
-    acts_as_mappable  :default_units => :miles,
-                      :default_formula => :sphere,
-                      :distance_field_name => :distance,
-                      :lat_column_name => :last_location_lat,
-                      :lng_column_name => :last_location_lon
+  # Necessary to authenticate.
+  has_secure_password
+  
+  # Necessary for gem 'geokit-rails'
+  acts_as_mappable  :default_units => :miles,
+                    :default_formula => :sphere,
+                    :distance_field_name => :distance,
+                    :lat_column_name => :last_location_lat,
+                    :lng_column_name => :last_location_lon
   
   # Basic password validation, configure to your liking.
   validates_length_of :password, maximum: 72, minimum: 8, allow_nil: true, allow_blank: false

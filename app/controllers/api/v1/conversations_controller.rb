@@ -1,11 +1,15 @@
 class Api::V1::ConversationsController < ApplicationController
 
     def index 
+
         conversations = Conversation.all
+
         render json: conversations
+
     end
 
     def create
+        
         # 1. create a new conversation in the db.
         conversation = Conversation.new(conversation_params)
         
@@ -20,8 +24,7 @@ class Api::V1::ConversationsController < ApplicationController
                 'conversations_channel', 
                 serialized_data
             )
-            head :ok
-          
+            head :ok 
         end
     end
 
