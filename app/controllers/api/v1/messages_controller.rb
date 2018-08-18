@@ -4,6 +4,7 @@ class Api::V1::MessagesController < ApplicationController
 
       # 1. create a new message in the db.
       message = Message.new(message_params)
+      message.user_id = current_user.id
     
       conversation = Conversation.find(message_params[:conversation_id])
       
