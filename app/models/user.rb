@@ -1,8 +1,11 @@
 class User < ApplicationRecord
 
   has_many :user_interests
+  has_many :user_conversations
   has_many :messages
   has_many :interests, through: :user_interests
+  has_many :conversations, through: :user_conversations
+
 
   # Necessary to photo upload.
   has_one_attached :profile_image
