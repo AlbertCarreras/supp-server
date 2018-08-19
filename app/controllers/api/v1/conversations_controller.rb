@@ -2,9 +2,8 @@ class Api::V1::ConversationsController < ApplicationController
     before_action :authenticate_user,  only: [:index, :create]
 
     def index 
-        # conversations = Conversation.select { |conversation| conversation.user_ids.include?(current_user.id)} 
+        conversations = Conversation.select { |conversation| conversation.user_ids.include?(current_user.id)} 
         
-        conversations = Conversation.all
         render json: conversations
 
     end
