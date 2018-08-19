@@ -4,7 +4,7 @@ class Api::V1::ConversationsController < ApplicationController
     def index 
         conversations = Conversation.select { |conversation| conversation.user_ids.include?(current_user.id)} 
         
-        render json: conversations
+        render json: conversations, include: "users,messages,messages.user"
 
     end
 
