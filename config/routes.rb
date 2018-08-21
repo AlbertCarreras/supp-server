@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       #CHAT & WEBSOCKET ROUTES
       resources :conversations, only: [:index, :create]
       resources :messages, only: [:create]
+      # get 'user/:id/photo' => 'friends#photoChatUser'
       mount ActionCable.server => '/cable'
       
     end

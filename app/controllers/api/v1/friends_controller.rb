@@ -1,5 +1,5 @@
 class Api::V1::FriendsController < ApplicationController
-    before_action :authenticate_user,  only: [:index, :filteredFriends]
+    before_action :authenticate_user,  only: [:index, :filteredFriends ]
 
     def index
       
