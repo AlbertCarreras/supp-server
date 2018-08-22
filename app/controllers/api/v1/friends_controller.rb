@@ -12,6 +12,7 @@ class Api::V1::FriendsController < ApplicationController
           "username" => user.username, 
           "email" => user.email, 
           "userId" => user.id, 
+          "active_user" => user.active_user,
           "last_login" => user.last_login, 
           "bio" => user.bio, 
           "profileImageLink" => user.profile_image.attached? ? url_for(user.profile_image.variant(resize: "400x400")) : "undefined",
