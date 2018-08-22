@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::API
 
     include Knock::Authenticable
- 
+
     protected
 
     # Method for checking if current_user is admin or not.
