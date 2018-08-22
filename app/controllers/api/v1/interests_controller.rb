@@ -11,10 +11,23 @@ class Api::V1::InterestsController < ApplicationController
         render json: interests
     end
 
+    def create
+        newInterest = Interest.new(name: interest_params[:newTerm].downcase.strip)
+        
+        if newInterest.save         
+            render json: newInterest
+        end
+
+    end
+
     private
 
     def user_params
         params.require(:search).permit(:searchTerm)
+    end
+
+    def interest_params
+        params.require(:interest).permit(:newTerm)
     end
 
 end
