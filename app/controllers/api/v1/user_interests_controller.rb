@@ -1,7 +1,8 @@
 class Api::V1::UserInterestsController < ApplicationController
   before_action :authenticate_user,  only: [:update, :destroy]
-    
-  def update
+  
+  # Add a user's new selected interest. 
+  def create
 
     if !params["user"]["interests"].nil?
 
@@ -15,6 +16,7 @@ class Api::V1::UserInterestsController < ApplicationController
 
   end
 
+  # Remove a user's interest. 
   def destroy
 
     if !params["user"]["interests"].nil?

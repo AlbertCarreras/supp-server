@@ -16,12 +16,8 @@ Rails.application.routes.draw do
       # User action data
       post '/users/uploadProfile' => 'users#upload'
       patch '/user/:id' => 'users#update'
-      post '/user/:id/interests' => 'user_interests#update'
+      post '/user/:id/interests' => 'user_interests#create'
       delete '/user_interests/:id' => 'user_interests#destroy'
-
-      #UNUSED
-      # get '/users/current' => 'users#current'
-      # delete '/user/:id' => 'users#destroy'
 
       #CHAT & WEBSOCKET ROUTES
       resources :conversations, only: [:index, :create]

@@ -1,6 +1,7 @@
 class Api::V1::UsersController < ApplicationController
   before_action :authenticate_user,  only: [:update, :upload]
-   
+  
+  # Find user and user methods from Active Storage for saving uploaded images.
   def upload
 
     user = User.find(photo_params[:user_id])
@@ -8,6 +9,8 @@ class Api::V1::UsersController < ApplicationController
     user.profile_image.attach(photo_params[:profile_image])
     
     # @url = Rails.application.routes.url_helpers.rails_blob_path(@user.profile_image, only_path: true)
+
+    #Resize returned image url using variant method.
     url = url_for(user.profile_image.variant(resize: "200x200"))
     
     json = {url: url, user_id: user.id}
@@ -15,7 +18,8 @@ class Api::V1::UsersController < ApplicationController
     render json: json
 
   end
-    
+  
+  # Update user information including geolocation coordinates.
   def update
 
     user = current_user

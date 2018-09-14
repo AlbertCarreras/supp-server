@@ -1,7 +1,7 @@
 class Api::V1::SessionsController < ApplicationController
     before_action :authenticate_user,  only: [:auth]
    
-    # Method to create a new user using the safe params we setup.
+    # Create a new user using the strong params.
     def create
       
       user = User.new(user_params)
@@ -14,6 +14,8 @@ class Api::V1::SessionsController < ApplicationController
 
     end
     
+    # If authorized, return the logged-in user information based on different conditionals:
+    # user has profile image and previous geolocation coordinates. 
     def auth
 
       if current_user.profile_image.attached?
