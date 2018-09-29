@@ -15,7 +15,7 @@ Github:
 Front-end 
 https://github.com/AlbertCarreras/supp-client
 
-React with Redux & Redux Thunk
+React with Redux & Redux Thunk & React-actioncable-provider
   * **Geolocation Web API** for obtaining user’s current location coordinates
 
     I used W3C Geolocation standard to request the browser the geolocation of the user. The request returns the latitude and longitude of the user which is persisted and used to georeference other nearby users.
@@ -66,6 +66,8 @@ Rails API with with serialization and Postgres
   
       I followed the __3.1.1 Connection Setup__ implementation guidelines from the Action Cable Overview documentation. However, I used JWT tokens for authorization. In order to pass the required cookies, the front-end generates a cookie containing the JWT token from localStorage and the server authorize the incoming connection if the user is identified in the JWT token.
     
+      Great resources for understanding credentials and deploying master key:
+      * https://medium.com/cedarcode/rails-5-2-credentials-9b3324851336
       Great resources for creating cookies in the React front-end:
       * https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie
     
