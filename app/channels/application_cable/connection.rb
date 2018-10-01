@@ -9,10 +9,8 @@ module ApplicationCable
     private
 
     def find_verified_user
-      # jwt = request.headers[:HTTP_SEC_WEBSOCKET_PROTOCOL] 
-      # if current_user = User.find_by(id: JWT.decode(jwt,"", false)[0]['sub'])
-      #   current_user
-      if current_user = User.find_by(id: JWT.decode(cookies["X-Authorization"],"", false)[0]['sub'])
+      # cookies["X-Authorization"] >> unused
+      if current_user = User.find_by(id: JWT.decode(request.params[:user],"", false)[0]['sub'])
         current_user
       else
         reject_unauthorized_connection
