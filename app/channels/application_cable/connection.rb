@@ -10,6 +10,7 @@ module ApplicationCable
 
     def find_verified_user
       # cookies["X-Authorization"] >> unused
+      # if current_user = User.find_by(id: request.params[:user])
       if current_user = User.find_by(id: JWT.decode(request.params[:user],"", false)[0]['sub'])
         current_user
       else

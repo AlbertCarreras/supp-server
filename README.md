@@ -15,7 +15,10 @@ Github:
 Front-end 
 https://github.com/AlbertCarreras/supp-client
 
-React with Redux & Redux Thunk & React-actioncable-provider
+React with Redux & Redux Thunk
+    
+  * **Redux and Redux Thunk** are key for all the asynchronous requests happening at a time. Redux helps keep and handle all the state from a single place while Thunk is indispensable to allow the app to work.
+
   * **Geolocation Web API** for obtaining user’s current location coordinates
 
     I used W3C Geolocation standard to request the browser the geolocation of the user. The request returns the latitude and longitude of the user which is persisted and used to georeference other nearby users.
@@ -66,8 +69,6 @@ Rails API with with serialization and Postgres
   
       I followed the __3.1.1 Connection Setup__ implementation guidelines from the Action Cable Overview documentation. However, I used JWT tokens for authorization. In order to pass the required cookies, the front-end generates a cookie containing the JWT token from localStorage and the server authorize the incoming connection if the user is identified in the JWT token.
     
-      Great resources for understanding credentials and deploying master key:
-      * https://medium.com/cedarcode/rails-5-2-credentials-9b3324851336
       Great resources for creating cookies in the React front-end:
       * https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie
     
@@ -77,6 +78,25 @@ Rails API with with serialization and Postgres
 
   Database. The following image shows the database tables and relationships.
     <img width="698" alt="screen shot 2018-09-07 at 14 22 50" src="https://user-images.githubusercontent.com/10593890/45236338-92fbe900-b2a9-11e8-87f1-dd8a155de961.png">
+
+### Notes on the used technologies  
+As I was building the app, I made some decisions that down the project happen to become some technical debt. I decided to install Knock because it was a light auth package. I considered Devise but I found it too comprehensive for the scope of the project. 
+
+Another decision was to use "React-actioncable-provider" to facilitate the implementation of Actioncable in the front end.
+
+When implementing the websockets for live active-user indicator, I found out that Actioncable uses cookies to identify the user in the server (channels folder) and does not have access to the controllers folder. At first, I made the front-end create a cookie container the token so it could be picked up in the server and identify the user which works in local/development. However, this solution does not work in production. I deployed front-end and backend in different domains and cookies don't work cross-domain. 
+
+Having used Devise, I could have scoped warden (https://www.sitepoint.com/create-a-chat-app-with-rails-5-actioncable-and-devise/).
+
+Having not used "React-actioncable-provider", instead hard-coding all the action cable implementation, I could have passed some user information in the headers. 
+
+The quickest -and not safe solution- was to pass the JWT token as a query parameter.
+
+### Notes on next steps
+- Implementing some tests (Rspec in the back end and Mocha in the front end) 
+- Organizing the CSS code implementing LESS or new CSS3 functionality. Fixing some CSS issues.
+- Add form validations messages.
+- Improving the algorithm for returning users by proximity and interests so it works with large datasets.
 
 ## Authors
 
