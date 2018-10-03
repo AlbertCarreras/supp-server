@@ -10,6 +10,11 @@ class Api::V1::SessionsController < ApplicationController
 
         render json: {status: 200, msg: 'User was created.'}
 
+      else 
+        render json: {
+          errors: user.errors.full_messages
+        }, status: :unprocessable_entity
+
       end
 
     end
