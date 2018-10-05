@@ -2,6 +2,7 @@ class Api::V1::FriendsController < ApplicationController
     before_action :authenticate_user,  only: [:index, :filteredFriends ]
 
     def index
+      if current_user.last_location_lat
       # Select all users except the current user. 
       users = getFriends()
       
@@ -10,6 +11,7 @@ class Api::V1::FriendsController < ApplicationController
       
       #Map users and for each build a hash with user information 
       render json: mapFriends(users)
+      end
     end
 
     def filteredFriends
