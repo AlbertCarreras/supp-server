@@ -57,9 +57,11 @@ Rails API with with serialization and Postgres
     
       Action Cable is the built-in websocket implementation in Rails. In order to facilitate the websocket connection from the React front-end, I decided to use **react-actioncable-provider (package)**.
       
-      __Live private chats__ I implemented a simplified version of private chats that I would refactor into a more sophisticated design in case of real implementation. New conversations are broadcasted to all users with serialized information about the 2 users to whom the conversation belongs to. In the front end, the received conversation is only displayed if one of the users is the logged in user.
+      __Live private chats__ I initially implemented a simplified version of private chats that I posteriorly refactored into a more secure implementation. First, users were connecting to a general channel. New conversations were broadcasted to all users with serialized information about the 2 users to whom the conversation belongs to. In the front end, the received conversation was only displayed if one of the users was the logged-in user.
+      
+      When implemented user identification on the websocket connection, each user started connecting to a dynamic private user channel based on each user's id. Now, new conversations are just broadcasted to both sender/receiver users. On the client side, we still check if the conversation's users match the actual logged-in user.
     
-      __Connected users indicators (blue-green dots)__ When a user logs in, they subscribe to a presence channel changing their status to active in the database  -reversely when disconnecting/unsubscribing. 
+      __Connected users indicators (blue-green dots)__ When a user logs in, they subscribe to a presence channel changing their status to active in the database  -reversely when disconnecting/unsubscribing. The change in status gets broadcasted to all subscribers.
 
       Great resources for implementing websockets in React-Rails apps:
       * https://medium.com/@dakota.lillie/using-action-cable-with-react-c37df065f296
@@ -90,12 +92,11 @@ Having used Devise, I could have scoped warden (https://www.sitepoint.com/create
 
 Having not used "React-actioncable-provider", instead hard-coding all the action cable implementation, I could have passed some user information in the headers. 
 
-The quickest -and not safe solution- was to pass the JWT token as a query parameter.
+The quickest -and not safe solution- was to pass the actual userId as a query parameter.
 
 ### Notes on next steps
 - Implementing some tests (Rspec in the back end and Mocha in the front end) 
 - Organizing the CSS code implementing LESS or new CSS3 functionality. Fixing some CSS issues.
-- Add form validations messages.
 - Improving the algorithm for returning users by proximity and interests so it works with large datasets.
 
 ## Authors
