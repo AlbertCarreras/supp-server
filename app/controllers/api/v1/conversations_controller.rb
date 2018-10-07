@@ -29,11 +29,22 @@ class Api::V1::ConversationsController < ApplicationController
                 ConversationSerializer.new(conversation)
             ).serializable_hash
             
-             # 3. Broadcast new serialized converation to channel subscribers.
+             # 3. Broadcast new serialized conversation to both channel subscribers.
             ActionCable.server.broadcast(
-                'conversations_channel', 
+                # Broadcast to general open channel
+                # 'conversations_channel',
+
+                # Broadcast to user/sender private channel
+                "current_user_#{current_user.id}", 
                 serialized_data
             )
+
+            ActionCable.server.broadcast(
+                # Broadcast to user/receiver private channel
+                "current_user_#{params["receiver_id"]}", 
+                serialized_data
+            )
+            
             head :ok 
         end
     end

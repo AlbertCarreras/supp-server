@@ -11,7 +11,14 @@ class Api::V1::FriendsController < ApplicationController
       
       #Map users and for each build a hash with user information 
       render json: mapFriends(users)
+
+      else 
+        render json: {
+          errors: "No coordinates."
+        }, status: :no_content
+
       end
+      
     end
 
     def filteredFriends
